@@ -10,7 +10,7 @@
     end
 end
 
-@recipe function f(loc_map::Dict{String, SpatPos})
+@recipe function f(loc_map::Dict{String, SpatPos}; font=nothing)
     keys_loc_map = Vector{String}(undef, length(loc_map))
     longitude_vec = Vector{Float64}(undef, length(loc_map))
     latitude_vec = Vector{Float64}(undef, length(loc_map))
@@ -21,7 +21,7 @@ end
     end
 
     seriestype --> :scatter # hack to show text only
-    series_annotations := keys_loc_map
+    series_annotations := (keys_loc_map, font)
     label --> false
     seriesalpha --> 0
     (longitude_vec, latitude_vec)

@@ -60,8 +60,26 @@ const scouting_action_group_map = Dict(
         "MO Carrier Striking Force",
         [180, 200, 300, # Shōkaku (翔鶴)
          235, 250, 265], # Zuikaku (瑞鶴)
-        250mi, CT(7, 6, 9), CT(7, 10, 30), -90, 
+        250mi, CT(7, 6, 9), CT(7, 10, 30), -90, # end time = (7, 12, 30)?
         [40mi, 40mi, 40mi,
          30mi, 30mi, 30mi]
+    ),#=
+    "Deboyne 7 May (plan)" => normal_single_sector_search.(
+        Deboyne,
+        [160, 195, 230],
+        463, CT(7, 6, 0), CT(7, 12, 30), 90,
+        
+    )
+    =#
+)
+
+#=
+(
+    name="Deboyne 7 May",
+    sp=Deboyne, st=(7, 4, 0), et=(7, 10, 30), # concrete time?
+    dist=463, rot=90, rot_dist= 200, # unknown rot_dist, make it determined automatically?
+    paths=Dict(
+        160=>(;), 195=>(;), 230=>(;) # squadron number?
     )
 )
+=#

@@ -122,7 +122,7 @@ const fleet_trajectory_map = Dict{String, Vector{SpatTempPos}}(
         (154.7, -9.6, CT(7, 0, 0)),
         (152.5, -9.8),
         (152.5, -9.9),
-        (153.5, -10.4, CT(7, 11, 0)), # Shoho sunk
+        (153.5, -10.5, CT(7, 11, 0)), # Shoho sunk
         (154.1, -10.8), 
         (154.5, -8.5),
         (154.7, -8.5),

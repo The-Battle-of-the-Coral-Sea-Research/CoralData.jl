@@ -9,7 +9,7 @@ const Cooktown = SpatPos(145.2, -15.4)
 const Townsville = SpatPos(146.45, -19.1)
 const Efate = SpatPos(168.4, -17.5)
 const Noumea = SpatPos(166.2, -22.0)
-const Deboyne = SpatPos(152.4, -10.6)
+const Deboyne = SpatPos(152.4, -10.7)
 const Rossel = SpatPos(154.1, -11.3)
 
 const locs = (;Rabaul, Lae, Shortland, Tulagi, Moresby, Cooktown, Townsville, Efate, Noumea,
