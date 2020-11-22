@@ -17,7 +17,7 @@ struct SectorSearchPlan <: AbstractSearchPlan
 	base::SpatPos
 	bearing::Tuple{Float64, Float64}
 	distance::Float64
-	num::Int
+	num::Int # number of used planes
 end
 
 Base.convert(::Type{SectorSearchPlan}, t::Tuple) = SectorSearchPlan(t...)

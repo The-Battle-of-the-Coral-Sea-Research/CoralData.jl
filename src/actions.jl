@@ -34,6 +34,32 @@ function normal_single_line_search(base, angle, distance, time_begin, time_end)
     ]
 end
 
+function get_deg_vec(deg_start, deg_end, length; search_lines)
+    if deg_end < deg_start
+        deg_end = deg_end + 360
+    end
+    if !search_lines
+        return range(deg_start, deg_end, length=length) .% 360
+    else
+        diff = abs(deg_end - deg_start) / (length+1) / 2
+        return (range(deg_start, deg_end, length=length+1)[1:end-1] .+ diff) .% 360
+    end
+end
+
+function Vector{Action}(ssp::SectorSearchPlan, time_begin::DateTime, time_end::DateTime)
+    deg_vec = get_deg_vec(ssp.bearing[1], ssp.bearing[2], ssp.num; search_lines=true)
+    return normal_single_line_search.(ssp.base, deg_vec, ssp.distance, time_begin, time_end)
+end
+
+function Vector{Action}(ssp::SectorSearchPlan, time_begin::DateTime, time_end::DateTime,
+        rot_angle::Float64, rot_distance::Float64)
+    deg_vec = get_deg_vec(ssp.bearing[1], ssp.bearing[2], ssp.num; search_lines=true)
+    return normal_single_line_search.(ssp.base, deg_vec, ssp.distance, time_begin, time_end,
+                                      rot_angle, rot_distance)
+end
+
+
+# data
 
 const scouting_action_group_map = Dict(
     "MO Carrier Striking Force, 4 May" => normal_single_sector_search.(
@@ -58,7 +84,7 @@ const scouting_action_group_map = Dict(
     ),
     "MO Carrier Striking Force, 7 May (plan)" => normal_single_sector_search.(
         "MO Carrier Striking Force",
-        [180, 200, 300, # Shōkaku (翔鶴)
+        [180, 200, 220, # Shōkaku (翔鶴)
          235, 250, 265], # Zuikaku (瑞鶴)
         250mi, CT(7, 6, 9), CT(7, 10, 30), -90, # end time = (7, 12, 30)?
         [40mi, 40mi, 40mi,
