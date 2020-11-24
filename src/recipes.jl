@@ -1,6 +1,6 @@
 
-@recipe function f(fleet_trajectory_map::Dict{String, Vector{SpatTempPos}})
-    for (fleet_name, stp_vec) in fleet_trajectory_map
+@recipe function plot_stp_map(fleet_stp_map::Dict{String, Vector{SpatTempPos}})
+    for (fleet_name, stp_vec) in fleet_stp_map
         @series begin
             longitude = map(p -> p.longitude, stp_vec)
             latitude = map(p -> p.latitude, stp_vec)
@@ -10,7 +10,7 @@
     end
 end
 
-@recipe function f(loc_map::Dict{String, SpatPos}; font=nothing)
+@recipe function plot_sp_map(loc_map::Dict{String, SpatPos}; font=nothing)
     keys_loc_map = Vector{String}(undef, length(loc_map))
     longitude_vec = Vector{Float64}(undef, length(loc_map))
     latitude_vec = Vector{Float64}(undef, length(loc_map))
@@ -23,17 +23,17 @@ end
     seriestype --> :scatter # hack to show text only
     series_annotations := (keys_loc_map, font)
     label --> false
-    seriesalpha --> 0
+    # seriesalpha --> 0
     (longitude_vec, latitude_vec)
 end
 
-@recipe function f(sp::SpatPos)#; markersize=2)
+@recipe function plot_sp(sp::SpatPos)#; markersize=2)
     seriestype --> :scatter
     # markersize --> markersize
     [sp.longitude], [sp.latitude]
 end
 
-@recipe function f(sp::SpatPos, name::String; font=nothing)#, markersize=2)
+@recipe function plot_sp_name(sp::SpatPos, name::String; font=nothing)#, markersize=2)
     seriestype --> :scatter
     # markersize --> markersize
     label --> false
@@ -41,7 +41,7 @@ end
     [sp.longitude], [sp.latitude]
 end
 
-@recipe function f(sp_vec::Vector{SpatPos})
+@recipe function plot_sp_vec(sp_vec::Vector{SpatPos})
     longitude_vec = Vector{Float64}(undef, length(sp_vec))
     latitude_vec = Vector{Float64}(undef, length(sp_vec))
     for i in eachindex(sp_vec)

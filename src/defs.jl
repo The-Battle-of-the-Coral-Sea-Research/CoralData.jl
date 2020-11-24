@@ -11,6 +11,9 @@ struct SpatPos
     latitude::Float64 # latitude
 end
 
+# https://www.reddit.com/r/Julia/comments/cipz46/broadcasting_with_a_custom_struct/
+Base.broadcastable(sp::SpatPos) = Ref(sp)
+
 abstract type AbstractSearchPlan end
 
 struct SectorSearchPlan <: AbstractSearchPlan

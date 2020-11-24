@@ -5,7 +5,7 @@ using RecipesBase
 
 export fleet_trajectory_map, fleet_size_map, loc_map, 
     plan_PQRYZ_KOO, plan_ABCDEFGI, plan_allied_late,
-    scouting_action_group_map
+    scouting_action_group_map, SpatPos, SpatTempPos, Action
 
 include("defs.jl")
 include("locations.jl")

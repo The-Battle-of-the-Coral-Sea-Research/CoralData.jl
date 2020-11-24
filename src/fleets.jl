@@ -1,6 +1,12 @@
 
 # Data
 
+const TF17_2_TF17_3_Support_Group_split_point = (154.1, -13.3, CT(7, 6, 25))
+# The split point have different values in different map? 
+# 戦史叢書第049巻 P275 (154.343949044586, 13.32484076433121)
+# Black Shoe Carrier Admiral, Chapter 12, (154.07692307692307, 13.5)
+
+
 const fleet_trajectory_map = Dict{String, Vector{SpatTempPos}}(
     "MO Carrier Striking Force" => [ # div 5 / MO Striking force
         (153, -0.1, CT(3, 7, 0)),
@@ -100,7 +106,7 @@ const fleet_trajectory_map = Dict{String, Vector{SpatTempPos}}(
         (158.2, -15, CT(6, 11, 30)),
         (158, -14.8, CT(6, 19, 30)),
         (156, -14, CT(7, 0, 0)),
-        (154.1, -13.2, CT(7, 6, 25)), # detach grace fleetp (support group)
+        TF17_2_TF17_3_Support_Group_split_point
     ],
     "Oil Fleet" => [ # Oil fleet
         (158, -14.8, CT(6, 19, 30)),
@@ -119,18 +125,40 @@ const fleet_trajectory_map = Dict{String, Vector{SpatTempPos}}(
         (155.4, -8.1),
         (155.6, -7.1, CT(6, 0, 0)),
         (155.5, -7.2),
-        (154.7, -9.6, CT(7, 0, 0)),
+        # (154.7, -9.6, CT(7, 0, 0)),
+        (153.3, -9.7, CT(7, 2, 0)), # detached Kinugasa, Furutaka
         (152.5, -9.8),
         (152.5, -9.9),
-        (153.5, -10.5, CT(7, 11, 0)), # Shoho sunk
+        # following is scraped from "第６戦隊戦時日誌戦闘詳報"
+        (152.92, -10.14, CT(7, 9, 0)), # combined Kinugasa, Furutaka
+        (153.05, -10.46, CT(7, 11, 30)), # Shoho sunk, the complex tactic maneuver is ignored
+        (153.21, -10.18, CT(7, 11, 53)),
+        (153.52, -9.8, CT(7, 13, 0)),
+        (154.34, -8.91, CT(7, 15, 30)),
+        (154.65, -8.92, CT(7, 17, 0)),
+        (154.73, -8.76),
+        (154.62, -9.3, CT(7, 19, 0)),
+        (154.38, -10.38, CT(7, 23, 0)),
+        (154.31, -10.5, CT(7, 23, 30)), # detached Kinugasa, Furutaka to reinforce MO Striking Force
+        (154.59, -9.03, CT(8, 6, 30)),
+        (154.42, -8.97),
+        (154.43, -8.43, CT(8, 9, 0)),
         (154.1, -10.8), 
-        (154.5, -8.5),
-        (154.7, -8.5),
-        (154.8, -8.4),
-        (154.9, -8.4),
-        (154.5, -10.5, CT(8, 0, 0)),
-        (154, -10),
-        (155, -10.2, CT(8, 12, 0))
+        (154.1, -10.8), 
+        (154.1, -10.8), 
+        (154.59, -9.03, CT(8, 6, 30)),
+        (154.68, -8.21), 
+        (154.68, -8.1),
+        (154.59, -8.),
+        (154.68, -7.93),
+        (154.68, -7.85, CT(8, 12, 30)),
+        (154.8, -8.11, CT(8, 14, 0)),
+        (154.8, -9.15, CT(8, 16, 30)),
+        (154.78, -9.2, CT(8, 16, 45)),
+        (154.76, -9.15, CT(8, 17, 0)),
+        (154.77, -9.05),
+        (155.08, -8.55, CT(8, 18, 20)),
+        (155.38, -7.42, CT(9, 1, 45)),
     ],
     "Covering Force" => [ # support force / covering force. Seaplane tender and 2 CLs.
         (152.3, -11, CT(7, 6, 30)),
@@ -138,7 +166,7 @@ const fleet_trajectory_map = Dict{String, Vector{SpatTempPos}}(
         (152.7, -7.6, CT(8, 0, 0)),
         (152.8, -5.5, CT(8, 12, 0))
     ],
-    "MO Invasion Force" => [ # convoy (MO invation group)
+    "MO Invasion Force" => [ # convoy (MO invade group)
         (152.1, -4.1, CT(4, 16, 0)),
         (152.5, -4.2),
         (153.0, -6.8),
@@ -150,29 +178,30 @@ const fleet_trajectory_map = Dict{String, Vector{SpatTempPos}}(
         (152.2, -6.6, CT(8, 12, 0))
     ],
     "Support Group" => [ # support group (Grace's fleet, Grace's CAs)
-        (154.1, -13.2, CT(7, 6, 25)),
+        TF17_2_TF17_3_Support_Group_split_point,
         (153, -12.5),
-        (151.5, -12),
+        (152.1213422282691, -12.115939732402623, CT(7, 14, 32)),
+        (151.5, -12), #, CT(7, 14, 50)), # start to fallback to south.
         (151, -12.5),
         (151.3, -13),
         (150, -12.7, CT(8, 0, 0)),
         (151.0, -14.3, CT(8, 20, 0))
     ],
     "TF17_3" => [ # TF11 + TF17 less support group
-        (154.1, -13.2, CT(7, 6, 25)),
-        (154.6, -12.7),
-        (154.8, -12.8),
-        (154.7, -12.7),
-        (154.5, -12.6),
-        (154.6, -12.5),
-        (154.7, -12.6),
-        (154.3, -12.9),
-        (154.4, -13, CT(7, 18, 0)),
+        TF17_2_TF17_3_Support_Group_split_point, 
+        (154.42, -12.84),
+        (154.77, -12.73),
+        (154.385, -12.538),
+        (154.461, -12.346),
+        (154.538, -12.5),
+        (154.385, -12.73),
+        (154.115, -12.961),
+        (154.308, -13.154, CT(7, 18, 0)),
         (154.8, -13.5),
         (155, -13.8),
-        (155.4, -14.1, CT(8, 0, 0)),
-        (155.4, -14.3),
-        (154.2, -14.3, CT(8, 6, 25)),
+        (155.46, -14.3, CT(8, 0, 0)),
+        (155.4, -14.4),
+        (154.2, -14.4, CT(8, 6, 25)),
         (154.3, -14.6, CT(8, 9, 0)),
         (155, -14.7, CT(8, 11, 0)),
         (155.4, -14.7),

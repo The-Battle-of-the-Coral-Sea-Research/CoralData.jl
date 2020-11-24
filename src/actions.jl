@@ -46,66 +46,49 @@ function get_deg_vec(deg_start, deg_end, length; search_lines)
     end
 end
 
-function Vector{Action}(ssp::SectorSearchPlan, time_begin::DateTime, time_end::DateTime)
+function Vector{Vector{Action}}(ssp::SectorSearchPlan, time_begin::DateTime, time_end::DateTime)
     deg_vec = get_deg_vec(ssp.bearing[1], ssp.bearing[2], ssp.num; search_lines=true)
     return normal_single_line_search.(ssp.base, deg_vec, ssp.distance, time_begin, time_end)
 end
 
-function Vector{Action}(ssp::SectorSearchPlan, time_begin::DateTime, time_end::DateTime,
+function Vector{Vector{Action}}(ssp::SectorSearchPlan, time_begin::DateTime, time_end::DateTime,
         rot_angle::Float64, rot_distance::Float64)
     deg_vec = get_deg_vec(ssp.bearing[1], ssp.bearing[2], ssp.num; search_lines=true)
     return normal_single_line_search.(ssp.base, deg_vec, ssp.distance, time_begin, time_end,
                                       rot_angle, rot_distance)
 end
 
-
-# data
-
-const scouting_action_group_map = Dict(
-    "MO Carrier Striking Force, 4 May" => normal_single_sector_search.(
-        "MO Carrier Striking Force",
-        [130, 140, 150], # Zuikaku (瑞鶴)
-        460, CT(4, 9, 22), CT(4, 13, 50), 90, 37
-    ),
-    "MO Carrier Striking Force, 5 May" => normal_single_sector_search.(
-        "MO Carrier Striking Force",
-        [105, 120, # Myōkō (妙高) 
-         130, 140, 150, # Zuikaku (瑞鶴)
-         160, 170, 180, # Shōkaku (翔鶴)
-         190, 200], # Haguro (羽黒)
-        [160mi, 250mi,
-         300mi, 300mi, 300mi, 300mi, 300mi, 300mi,
-         250mi, 160mi],
-        CT(5, 6, 0), CT(5, 11, 24), # the end time is not known, fill it with a reasonable value.
-        90,
-        [30mi, 25mi,
-         25mi, 25mi, 25mi, 25mi, 25mi, 25mi,
-         25mi, 30mi]
-    ),
-    "MO Carrier Striking Force, 7 May (plan)" => normal_single_sector_search.(
-        "MO Carrier Striking Force",
-        [180, 200, 220, # Shōkaku (翔鶴)
-         235, 250, 265], # Zuikaku (瑞鶴)
-        250mi, CT(7, 6, 9), CT(7, 10, 30), -90, # end time = (7, 12, 30)?
-        [40mi, 40mi, 40mi,
-         30mi, 30mi, 30mi]
-    ),#=
-    "Deboyne 7 May (plan)" => normal_single_sector_search.(
-        Deboyne,
-        [160, 195, 230],
-        463, CT(7, 6, 0), CT(7, 12, 30), 90,
-        
+function Dict{String, Vector{Vector{SpatTempPos}}}(scouting_action_group_map::Dict{String, Vector{Vector{Action}}}, fleet_stpi_vec_map::Dict{String})
+    return Dict(
+        key => map(x->Vector{SpatTempPos}(x, fleet_stpi_vec_map), soucting_action_group) 
+        for (key, soucting_action_group) in scouting_action_group_map
     )
-    =#
-)
+end
 
-#=
-(
-    name="Deboyne 7 May",
-    sp=Deboyne, st=(7, 4, 0), et=(7, 10, 30), # concrete time?
-    dist=463, rot=90, rot_dist= 200, # unknown rot_dist, make it determined automatically?
-    paths=Dict(
-        160=>(;), 195=>(;), 230=>(;) # squadron number?
-    )
-)
-=#
+"""
+    flatten_stpi_vec_group(stpi_vec_group_map)
+
+Flatten out the group level by reducing it to name.
+This function can be used to convert scouting plan groups to fleet dict like data.
+
+Dict("A" => [a1, a2, a3], "B" => [b1, b2, b3])
+->
+Dict("A_1"=>a1, "A_2"=>a2, "A_3"=>a3, "B_1"=>b1, "B_2"=>b2, "B_3"=>b3)
+"""
+function flatten_vec_group(vec_group_map::Dict{String, <:AbstractVector{T}}) where T
+    rd = Dict{String, T}()
+    for (key, v_vec) in vec_group_map
+        for i in eachindex(v_vec)
+            rd["$(key)_$i"] = v_vec[i]
+        end
+    end
+    return rd
+end
+
+function Dict{String, Vector{SpatTempPos}}(scouting_action_group_map, fleet_stpi_vec_map)
+    rd = Dict{String, Vector{Vector{SpatTempPos}}}(scouting_action_group_map, fleet_stpi_vec_map)
+    return flatten_vec_group(rd)
+end
+
+include("actions_data.jl")
+
