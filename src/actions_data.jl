@@ -1,6 +1,8 @@
 # data
 
-const scouting_action_group_map = Dict(
+# Typing `Dict{String, Vector{Vector{Action}}}` is used to suppress vscode julia plugin unreasonable warning info.
+
+const scouting_action_group_map = Dict{String, Vector{Vector{Action}}}(
     "MO Carrier Striking Force, 4 May" => normal_single_sector_search.(
         "MO Carrier Striking Force",
         [130, 140, 150], # Zuikaku (瑞鶴)
@@ -21,30 +23,30 @@ const scouting_action_group_map = Dict(
          25mi, 25mi, 25mi, 25mi, 25mi, 25mi,
          25mi, 30mi]
     ),
-    "MO Carrier Striking Force, 7 May (plan)" => normal_single_sector_search.(
+    "MO Carrier Striking Force, 7 May" => normal_single_sector_search.(
         "MO Carrier Striking Force",
         [180, 200, 220, # Shōkaku (翔鶴)
          235, 250, 265], # Zuikaku (瑞鶴)
         250mi, CT(7, 6, 9), CT(7, 10, 30), -90, # end time = (7, 12, 30)?
         [40mi, 40mi, 40mi,
          30mi, 30mi, 30mi]
-    ),#=
-    "Deboyne 7 May (plan)" => normal_single_sector_search.(
-        Deboyne,
-        [160, 195, 230],
-        463, CT(7, 6, 0), CT(7, 12, 30), 90,
-        
+    ),
+    "MO Carrier Striking Force, 7 May Afternoon" => normal_single_sector_search.(
+        "MO Carrier Striking Force",
+        [230, 250, # Shōkaku (翔鶴)
+         270, 290], # Zuikaku (瑞鶴)
+        500, CT(7, 15, 15), CT(7, 18, 30), -90, # end time = (7, 12, 30)?
+        37
+    ),
+    "MO Carrier Striking Force, 7 May Afternoon Attack" => [normal_single_line_search(
+        "MO Carrier Striking Force", 270, 500, CT(7, 14, 30), CT(7, 18, 20)
+    )],
+    "MO Carrier Striking Force, 8 May" => normal_single_sector_search.(
+        "MO Carrier Striking Force",
+        [140, 155, 170, # Zuikaku (瑞鶴)
+         185, 200, 215, 230], # Shōkaku (翔鶴)
+        250mi, CT(7, 8, 0), CT(8, 11, 50), -90, # end time CT(8,10, 26) ~ CT(8, 11, 50)
+        30mi
     )
-    =#
 )
 
-#=
-(
-    name="Deboyne 7 May",
-    sp=Deboyne, st=(7, 4, 0), et=(7, 10, 30), # concrete time?
-    dist=463, rot=90, rot_dist= 200, # unknown rot_dist, make it determined automatically?
-    paths=Dict(
-        160=>(;), 195=>(;), 230=>(;) # squadron number?
-    )
-)
-=#

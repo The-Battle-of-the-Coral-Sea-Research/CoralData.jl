@@ -79,7 +79,7 @@ function flatten_vec_group(vec_group_map::Dict{String, <:AbstractVector{T}}) whe
     rd = Dict{String, T}()
     for (key, v_vec) in vec_group_map
         for i in eachindex(v_vec)
-            rd["$(key)_$i"] = v_vec[i]
+            rd["$(key)[$i]"] = v_vec[i]
         end
     end
     return rd

@@ -11,6 +11,19 @@ struct SpatPos
     latitude::Float64 # latitude
 end
 
+"""
+    struct ForwardDeg
+
+Denote a location which is relative to another location. 
+Delegate the `forward_deg` calculation to other package.
+"""
+struct ForwardDeg
+    longitude::Float64 # longitude
+    latitude::Float64 # latitude
+    degree::Float64
+    distance::Float64
+end
+
 # https://www.reddit.com/r/Julia/comments/cipz46/broadcasting_with_a_custom_struct/
 Base.broadcastable(sp::SpatPos) = Ref(sp)
 
@@ -24,6 +37,31 @@ struct SectorSearchPlan <: AbstractSearchPlan
 end
 
 Base.convert(::Type{SectorSearchPlan}, t::Tuple) = SectorSearchPlan(t...)
+
+function Base.getindex(ssp::SectorSearchPlan, idx_vec::AbstractVector)
+    # support ssp[1:3] style "indexing"
+    left, right = ssp.bearing
+    if right < left
+        right += 360
+    end
+    h = (right - left) / ssp.num
+    min_idx = minimum(idx_vec)
+    max_idx = maximum(idx_vec)
+    left_new = (left + (min_idx - 1) * h) % 360
+    right_new = (left + max_idx * h) % 360
+    return SectorSearchPlan(ssp.base, (left_new, right_new), ssp.distance, max_idx - min_idx + 1)
+end
+
+struct CounterClockwise end # trait
+
+function Base.getindex(ssp::SectorSearchPlan, ::CounterClockwise, idx_vec::AbstractVector)
+    idx_vec_trans = reverse(length(idx_vec) .- (idx_vec .- 1))
+    return ssp[idx_vec_trans]
+end
+
+function set_distance(ssp::SectorSearchPlan, distance)
+    return SectorSearchPlan(ssp.base, ssp.bearing, distance, ssp.num)
+end
 
 # We may add a specific struct for early Noumean's parallel plan
 
