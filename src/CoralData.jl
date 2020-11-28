@@ -12,6 +12,7 @@ include("locations.jl")
 include("fleets.jl")
 include("base_search_plans.jl")
 include("actions.jl")
+include("collected_data.jl")
 include("recipes.jl")
 
 end # module

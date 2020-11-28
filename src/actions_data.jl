@@ -45,7 +45,7 @@ const scouting_action_group_map = Dict{String, Vector{Vector{Action}}}(
         "MO Carrier Striking Force",
         [140, 155, 170, # Zuikaku (瑞鶴)
          185, 200, 215, 230], # Shōkaku (翔鶴)
-        250mi, CT(7, 8, 0), CT(8, 11, 50), -90, # end time CT(8,10, 26) ~ CT(8, 11, 50)
+        250mi, CT(8, 8, 0), CT(8, 11, 50), -90, # end time CT(8,10, 26) ~ CT(8, 11, 50)
         30mi
     )
 )

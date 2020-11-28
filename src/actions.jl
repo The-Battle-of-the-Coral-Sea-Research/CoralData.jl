@@ -59,7 +59,7 @@ function Vector{Vector{Action}}(ssp::SectorSearchPlan, time_begin::DateTime, tim
 end
 
 function Dict{String, Vector{Vector{SpatTempPos}}}(scouting_action_group_map::Dict{String, Vector{Vector{Action}}}, fleet_stpi_vec_map::Dict{String})
-    return Dict(
+    return Dict{String, Vector{Vector{SpatTempPos}}}(
         key => map(x->Vector{SpatTempPos}(x, fleet_stpi_vec_map), soucting_action_group) 
         for (key, soucting_action_group) in scouting_action_group_map
     )
@@ -89,6 +89,48 @@ function Dict{String, Vector{SpatTempPos}}(scouting_action_group_map, fleet_stpi
     rd = Dict{String, Vector{Vector{SpatTempPos}}}(scouting_action_group_map, fleet_stpi_vec_map)
     return flatten_vec_group(rd)
 end
+
+# debug and editing helper
+
+"""
+    redirect(action_vec::Vector{<:Vector{<:Action}}, loc)
+
+last MoveTo(old_loc, time) -> MoveTo(new_loc, time)
+"""
+function redirect(action_vec::Vector{<:Action}, loc)
+    return [action_vec[1:end-1]; MoveTo(loc, action_vec[end].time)]
+end
+
+# Compatible purpose
+redirect(action_vec_vec::Vector{<:Vector{<:Action}}, loc) = redirect.(action_vec_vec, loc)
+
+#=
+function append_end(action_vec_vec::Vector{<:Vector{<:Action}}, loc)
+    map(append_end, action_vec_vec) do action_vec
+        [action_vec[1:end-1]; 
+         MoveTo(action_vec[end].pos);
+         MoveTo(loc, action_vec[end].time)]
+    end
+end
+=#
+
+"""
+    append_end(action_vec::Vector{<:Action}, loc)
+
+last MoveTo(old_loc, time) -> [MoveTo(old_loc), MoveTo(loc, time)]
+"""
+function append_end(action_vec::Vector{<:Action}, loc)
+    return [
+        action_vec[1:end-1]; 
+        MoveTo(action_vec[end].pos);
+        MoveTo(loc, action_vec[end].time)
+    ]
+end
+
+# Compatible purpose
+append_end(action_vec_vec::Vector{<:Vector{<:Action}}, loc) = append_end.(action_vec_vec, loc)
+
+# introduce data section
 
 include("actions_data.jl")
 

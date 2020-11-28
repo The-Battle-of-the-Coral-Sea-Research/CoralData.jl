@@ -11,6 +11,11 @@ struct SpatPos
     latitude::Float64 # latitude
 end
 
+#=
+
+# Representing lazy computing data structure explicitly requires extra complexity, 
+# we would rather just use `(forward_deg, get_pos) -> ...`.
+
 """
     struct ForwardDeg
 
@@ -23,6 +28,17 @@ struct ForwardDeg
     degree::Float64
     distance::Float64
 end
+
+"""
+    struct GetPos
+
+A "lazy" symbol denoting `get_pos` in `CoralTools`, or leave space to leverage varying implementations.
+"""
+struct GetPos
+    target::String
+    time::DateTime
+end
+=#
 
 # https://www.reddit.com/r/Julia/comments/cipz46/broadcasting_with_a_custom_struct/
 Base.broadcastable(sp::SpatPos) = Ref(sp)
@@ -55,7 +71,7 @@ end
 struct CounterClockwise end # trait
 
 function Base.getindex(ssp::SectorSearchPlan, ::CounterClockwise, idx_vec::AbstractVector)
-    idx_vec_trans = reverse(length(idx_vec) .- (idx_vec .- 1))
+    idx_vec_trans = reverse(ssp.num .- (idx_vec .- 1))
     return ssp[idx_vec_trans]
 end
 
@@ -112,3 +128,31 @@ struct MoveForward{TT} <: Action
 end
 
 MoveForward(distance) = MoveForward{Nothing}(distance, nothing)
+
+struct RelPos
+    base::SpatPos
+    angle::Float64
+    dist::Float64
+end
+
+struct ContactReport{T <: Union{SpatPos, RelPos, Missing}}
+    cancelled_plan::Tuple{String, Int}
+    time_recv::DateTime
+    time_begin::DateTime
+    time_end::DateTime
+    pos::T
+    angle::Float64 # degree
+    speed::Float64 # km / hour
+end
+
+function ContactReport(cancelled_plan, time_recv, time_begin, time_end, pos, angle, speed)
+    return ContactReport(cancelled_plan, time_recv, time_begin, time_end, pos, Float64(angle), Float64(speed))
+end
+
+function ContactReport(cancelled_plan, time_recv, time_begin, time_end, pos)
+    return ContactReport(cancelled_plan, time_recv, time_begin, time_end, pos, 0, 0)
+end
+
+function ContactReport(cancelled_plan, time_recv, time_begin, time_end)
+    return ContactReport(cancelled_plan, time_recv, time_begin, time_end, missing)
+end
