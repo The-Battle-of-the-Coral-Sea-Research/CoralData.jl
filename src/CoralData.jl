@@ -13,6 +13,9 @@ include("fleets.jl")
 include("base_search_plans.jl")
 include("actions.jl")
 include("collected_data.jl")
+include("contact_reports.jl")
 include("recipes.jl")
+
+include("equipments.jl")
 
 end # module

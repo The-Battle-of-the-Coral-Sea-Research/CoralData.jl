@@ -19,6 +19,7 @@ function get_collected_data(get_pos_by_name::Function, forward_deg::Function, V)
     let S=SectorSearchPlan, VVA=Vector{Vector{Action}}, D=set_distance
         
         day7_target = forward_deg(Rossel, 170, 82mi)[1]
+        # day7_target2 = forward_deg(Deboyne, 152, 280)[1]
         plan_F_ext = D(plan_ABCDEFGI["F"], 650mi)
         day8_target = forward_deg(
             get_pos_by_name("MO Carrier Striking Force", CT(8, 8, 22)),
@@ -41,9 +42,13 @@ function get_collected_data(get_pos_by_name::Function, forward_deg::Function, V)
             "Tulagi, 2, 6 May" => V([normal_single_line_search(Tulagi, 192, 420mi, CT(6, 14, 0), CT(6, 7, 1))]),
             
             # 7 May
-            "Rossel, SE, 7 May" => V(append_end(VVA(S(Rossel, (90, 210), 150mi, 4), CT(7, 5, 0), CT(7, 11, 30)), Deboyne)),
+            "Rossel, SE, 7 May" => V(append_end(VVA(S(Rossel, (90, 210), 150mi, 4), CT(7, 5, 0), CT(7, 11, 30)), Deboyne)), # `time_begin=5:00` is infered by aircraft report time and ship
             "Rossel, 2, 7 May" => V(append_end(VVA(S(Rossel, (90, 210), 150mi, 4), CT(7, 10, 30), CT(7, 16, 30)), Deboyne)), # TODO: elaborate
-            "Deboyne, S, 7 May" => V(S(Deboyne, (160, 230), 250mi, 4), CT(7, 5, 0), CT(7, 9, 0)), # TODO: elaborate, 4 is guessed value
+            # "Deboyne, S, 7 May" => V(S(Deboyne, (160, 230), 250mi, 4), CT(7, 5, 0), CT(7, 9, 0)), # split it into follow two plans
+            "Deboyne, S, 7 1" => V(S(Deboyne, (160, 230), 250mi, 4)[CounterClockwise(), 1:3], CT(7, 6, 30), CT(7, 11, 45)), # Kamikawa Maru (神川丸) 
+            "Deboyne, S, 7 2" => V(S(Deboyne, (160, 230), 250mi, 4)[CounterClockwise(), 4:4], CT(7, 7, 45), CT(7, 13, 0)), # Kiyokawa Maru (聖川丸) 1 poor 
+            "Deboyne, S, 7 3" => V([[MoveTo(Deboyne, CT(7, 12, 15)), MoveTo("Support Group", CT(7, 13, 30)), MoveTo("Support Group", CT(7, 15, 30)), MoveTo(Deboyne, CT(7, 16, 45))]]), # Kiyokawa Maru (聖川丸) 2
+            "Deboyne, S, 7 4" => V([[MoveTo(Deboyne, CT(7, 16, 0)), MoveTo("Support Group", CT(7, 17, 15)), MoveTo("Support Group", CT(7, 18, 45)), MoveTo(Deboyne, CT(7, 20, 0))]]), # Kiyokawa Maru (聖川丸) 3
             "Rabaul, Z C, 7 May" => V(plan_ABCDEFGI["C"][CounterClockwise(), 1:3], CT(7, 7, 15), CT(7, 17, 27)), # TODO: Verify
             "Rabaul, S, 7 May" => V(normal_single_sector_search.(Rabaul, [160, 170, 180], 700mi, CT(7, 6, 30), CT(7, 13, 50), 90, 60mi)),
             "Rabaul, 2, 7 May" => V([[MoveTo(Rabaul, CT(7, 9, 15)), MoveTo(day7_target), MoveTo(Rabaul, CT(7, 17, 5))]]), # 12 Betty, torpedo attack

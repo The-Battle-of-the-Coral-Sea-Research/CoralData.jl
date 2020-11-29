@@ -31,6 +31,9 @@ const scouting_action_group_map = Dict{String, Vector{Vector{Action}}}(
         [40mi, 40mi, 40mi,
          30mi, 30mi, 30mi]
     ),
+    "MO Carrier Striking Force, 7 May Attack" => [normal_single_line_search(
+        "MO Carrier Striking Force", 170, 310, CT(7, 8, 15), CT(7, 13, 10)
+    )],
     "MO Carrier Striking Force, 7 May Afternoon" => normal_single_sector_search.(
         "MO Carrier Striking Force",
         [230, 250, # Shōkaku (翔鶴)
@@ -39,14 +42,23 @@ const scouting_action_group_map = Dict{String, Vector{Vector{Action}}}(
         37
     ),
     "MO Carrier Striking Force, 7 May Afternoon Attack" => [normal_single_line_search(
-        "MO Carrier Striking Force", 270, 500, CT(7, 14, 30), CT(7, 18, 20)
+        # "MO Carrier Striking Force", 270, 500, CT(7, 16, 30), CT(7, 20, 20)
+        "MO Carrier Striking Force", 270, 500, CT(7, 16, 30), CT(7, 19, 20) # remove search time, -1 hour 
     )],
     "MO Carrier Striking Force, 8 May" => normal_single_sector_search.(
         "MO Carrier Striking Force",
         [140, 155, 170, # Zuikaku (瑞鶴)
          185, 200, 215, 230], # Shōkaku (翔鶴)
-        250mi, CT(8, 8, 0), CT(8, 11, 50), -90, # end time CT(8,10, 26) ~ CT(8, 11, 50)
+        250mi, CT(8, 6, 0), CT(8, 11, 8), -90, # end time CT(8,10, 26) ~ CT(8, 11, 50), CT(8, 11, 8) is the median
         30mi
-    )
+    ),
+    "MO Carrier Striking Force, 8 May Attack" => [normal_single_line_search(
+        "MO Carrier Striking Force", 205, 235mi, CT(8, 9, 30), CT(8, 14, 15)
+    )]
+    #=[
+        MoveTo("MO Carrier Striking Force", CT(8, 9, 30)),
+        TurnAngleTo(205),
+        MoveForward(235mi, CT(8, 11, 5)), # This action will be cancelled by contact report, so full path is not required
+    ]=#
 )
 

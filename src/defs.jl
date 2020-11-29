@@ -129,11 +129,13 @@ end
 
 MoveForward(distance) = MoveForward{Nothing}(distance, nothing)
 
-struct RelPos
-    base::SpatPos
+struct RelPos{T <: Union{SpatPos, String}}
+    base::T
     angle::Float64
     dist::Float64
 end
+
+RelPos(base, angle, dist) = RelPos(base, Float64(angle), Float64(dist))
 
 struct ContactReport{T <: Union{SpatPos, RelPos, Missing}}
     cancelled_plan::Tuple{String, Int}
@@ -156,3 +158,6 @@ end
 function ContactReport(cancelled_plan, time_recv, time_begin, time_end)
     return ContactReport(cancelled_plan, time_recv, time_begin, time_end, missing)
 end
+
+# ContactReport(t::Tuple) = ContactReport(t...)
+Base.convert(::Type{ContactReport}, t::Tuple) = ContactReport(t...)

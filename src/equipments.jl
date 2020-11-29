@@ -7,7 +7,7 @@ struct Aircraft
     range::Float64 # km
 end
 
-Plane(t::Tuple) = Plane(t...)
+Base.convert(::Type{Aircraft}, t::Tuple) = Aircraft(t...)
 
 struct Ship
     cruise_speed::Float64
@@ -15,9 +15,9 @@ struct Ship
     range::Float64
 end
 
-Ship(t::Tuple) = Ship(t...)
+Base.convert(::Type{Ship}, t::Tuple) = Ship(t...)
 
-const plane_map = Dict{String, Aircraft}(
+const aircraft_map = Dict{String, Aircraft}(
     # seaplane
 
     "Mavis" => (120mi, 180mi, 2590mi), # Kawanishi H6K, 九七式大型飛行艇, service in Shortland, Tulagi
@@ -55,8 +55,14 @@ const plane_map = Dict{String, Aircraft}(
 )
 
 const ship_map = Dict{String, Ship}(
-    "Shokaku" => Ship(18mi, 34.2mi, 9700mi), 
+    "Shokaku" => Ship(18mi, 34.2mi, 9700mi), # 翔鶴
     # https://en.wikipedia.org/wiki/Japanese_aircraft_carrier_Sh%C5%8Dkaku
-    "Zuikaku" => Ship(18mi, 34.5mi, 6588mi),
+    "Zuikaku" => Ship(18mi, 34.5mi, 6588mi), # 瑞鶴
     # https://en.wikipedia.org/wiki/Japanese_aircraft_carrier_Zuikaku
+    "Shoho" => Ship(18mi, 28mi, 7800mi), # 祥鳳
+    # https://en.wikipedia.org/wiki/Japanese_aircraft_carrier_Sh%C5%8Dh%C5%8D
+    "Kinugasa" => Ship(14mi, 36mi, 8223mi), # 衣笠
+    # https://en.wikipedia.org/wiki/Japanese_cruiser_Kinugasa
+    "Furutaka" => Ship(14mi, 34.5mi, 6000mi), # 古鷹
+    # https://en.wikipedia.org/wiki/Japanese_cruiser_Furutaka
 )
