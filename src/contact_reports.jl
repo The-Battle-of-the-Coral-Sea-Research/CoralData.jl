@@ -35,16 +35,16 @@ const contact_report_vec_vec = Vector{Vector{ContactReport}}(
                 RelPos(Deboyne, 152, 280), 30, 20mi)
         ],
         [
-            (("Rossel, SE, 7 May", 3), CT(7, 8, 40), CT(7, 8, 20), CT(7, 9, 20), # assume 1 hoour tracking
+            (("Rossel, SE, 7 May", 3), CT(7, 8, 40), CT(7, 8, 20), CT(7, 9, 20), # assume 1 hour tracking
                 RelPos(Rossel, 170, 82mi))
         ],
         [
             (("Rossel, SE, 7 May", 2), CT(7, 7, 45), CT(7, 7, 45), CT(7, 7, 45)) # Shot down, cancelled
         ],
-        # Tulagi's contact report is very strange if you compare it with a map, anyway if even Inoue can't figure it out, there's no reason we can figure it out.
+        # The contact report of Tulagi is very strange if you compare it with a map, anyway if even Inoue can't figure it out, there's no reason we can figure it out.
         [
             (("Tulagi, Z F, 7 May", 4), CT(7, 8, 40), CT(7, 8, 40), CT(7, 11, 30))
-            # While it's weird that the reported position, angle and speed are not avaiable 
+            # While it's weird that the reported position, angle and speed are not available 
             # and expected path is considerably distant from claimed target, but it's only what I can draw from the material :<  
         ],
         [
@@ -59,7 +59,7 @@ const contact_report_vec_vec = Vector{Vector{ContactReport}}(
         ],
         # For Deboyne, we can only infer time from map analysis. 
         [
-            (("Deboyne, S, 7 2", 1), CT(7, 9, 0), CT(7, 9, 0), CT(7, 11, 45)) # all time are infered
+            (("Deboyne, S, 7 2", 1), CT(7, 9, 0), CT(7, 9, 0), CT(7, 11, 45)) # all time are inferred
         ],
         [
             (("Deboyne, S, 7 3", 1), CT(7, 13, 30), CT(7, 13, 30), CT(7, 15, 30))

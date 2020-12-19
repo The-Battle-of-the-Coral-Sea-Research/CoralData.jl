@@ -28,6 +28,17 @@ function get_collected_data(get_pos_by_name::Function, forward_deg::Function, V)
         
         # Dict{String, V}(
         Dict(
+            # 3 May (Scouting from Rabaul in 3 May and 4 May are guessed value)
+            "Shortland, Z D, 3 May" => V(plan_ABCDEFGI["D"][CounterClockwise(), 3:5], CT(3, 7, 15), CT(3, 16, 55)),
+            "Air Transport 3 May" => V([[MoveTo(Rabaul, CT(3, 11, 40)), MoveTo(Tulagi, CT(3, 16, 15))]]),
+            "Rabaul, B F, 3 May" => V(plan_ABCDEFGI["B"], CT(3, 7, 30), CT(3, 16, 30)), # very poor guess
+            "Rabaul, C F, 3 May" => V(plan_ABCDEFGI["C"], CT(3, 7, 30), CT(3, 16, 30)), # very poor guess
+
+            # 4 May
+            "Tulagi, G F, 4 May" => V(plan_ABCDEFGI["G"][CounterClockwise(), 1:3], CT(4, 7, 0), CT(4, 17, 30)),
+            "Rabaul, B F, 4 May" => V(plan_ABCDEFGI["B"], CT(4, 7, 30), CT(4, 16, 30)), # very poor guess
+            "Rabaul, C F, 4 May" => V(plan_ABCDEFGI["C"], CT(4, 7, 30), CT(4, 16, 30)), # very poor guess
+
             # 5 May
             "Rabaul, S, 5 May" => V(S(Rabaul, (165, 190), 1300, 3), CT(5, 8, 5), CT(5, 17, 30)), # end time -> (15:45, 17:30)
             "Rabaul, Z C, 5 May" => V(plan_ABCDEFGI["C"][CounterClockwise(), 1:3], CT(5, 7, 15), CT(5, 17, 27)), # C[1:3] -> C line 2-4
