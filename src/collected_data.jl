@@ -48,8 +48,9 @@ function get_collected_data(get_pos_by_name::Function, forward_deg::Function, V)
             # 6 May, the value is "guessed" in some extent. Rabaul and Shortland is copied from 5 May, and value of Tulagi is infered from result
             "Rabaul, S, 6 May" =>  V(S(Rabaul, (165, 190), 1300, 3), CT(6, 8, 5), CT(6, 17, 30)), # TODO: Verify +
             "Rabaul, Z C, 6 May" => V(plan_ABCDEFGI["C"][CounterClockwise(), 1:3], CT(6, 7, 15), CT(6, 17, 27)), # Verify +
-            "Shortland, Z D, 6 May" => V(plan_ABCDEFGI["D"][CounterClockwise(), 2:4], CT(6, 3, 30), CT(6, 17, 0)), # Verify +
-            "Tulagi, Z F, 6 May" => V(plan_F_ext[CounterClockwise(), 1:5], CT(6, 6, 30), CT(6, 15, 30)), # Verify -
+            # "Shortland, Z D, 6 May" => V(plan_ABCDEFGI["D"][CounterClockwise(), 2:4], CT(6, 3, 30), CT(6, 17, 0)), # Verify +
+            # The above plan is not seen in "昭和１７年４月～昭和１７年５月　横浜空　飛行機隊戦闘行動調書"
+            "Tulagi, Z F, 6 May" => V(plan_F_ext[CounterClockwise(), 3:7], CT(6, 6, 30), CT(6, 15, 30)), # Verify -
             "Tulagi, 2, 6 May" => V([normal_single_line_search(Tulagi, 192, 420mi, CT(6, 14, 0), CT(6, 7, 1))]),
             
             # 7 May

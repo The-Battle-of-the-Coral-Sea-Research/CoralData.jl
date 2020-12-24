@@ -12,6 +12,7 @@
 * [戦史叢書第049巻　南東方面海軍作戦＜1＞ガ島奪回作戦開始まで](http://www.nids.mod.go.jp/military_history_search/CrossSearch)
 * [第６戦隊戦時日誌戦闘詳報](https://www.jacar.archives.go.jp/aj/meta/image_C08030045600?IS_KIND=detail&IS_STYLE=default&IS_TAG_S1=InfoId&IS_KEY_S1=M2008040314041207381&)
 * [MO機動部隊戦闘詳報](https://www.jacar.archives.go.jp/aj/meta/image_C08030728400?IS_KIND=detail&IS_STYLE=default&IS_TAG_S1=InfoId&IS_KEY_S1=M2008040314143414209&)
+* [昭和１７年４月～昭和１７年５月　横浜空　飛行機隊戦闘行動調書](https://www.jacar.archives.go.jp/aj/meta/image_C08051608700?IS_KIND=detail&IS_STYLE=default&IS_TAG_S1=InfoId&IS_KEY_S1=M2008061910212829379&)
 * Black Shoe Carrier Admiral: Frank Jack Fletcher at Coral Sea, Midway & Guadalcanal
 * The First Team: Pacific Naval Air Combat from Pearl Harbor to Midway
 * THE CORAL SEA 1942: the first carrier battle

@@ -4,12 +4,13 @@ const dummy_delta = Minute(10)
 const contact_report_vec_vec = Vector{Vector{ContactReport}}(
     [
         [
-            (("Shortland, Z D, 5 May", 1), CT(5, 6, 46), CT(5, 6, 46), CT(5, 6, 46) + dummy_delta)
+            # (("Shortland, Z D, 5 May", 1), CT(5, 6, 46), CT(5, 6, 46), CT(5, 6, 46) + dummy_delta)
+            (("Shortland, Z D, 5 May", 1), CT(5, 12, 30), CT(5, 12, 30), CT(5, 12, 30) + dummy_delta)
         ],
         [
-            (("Tulagi, Z F, 6 May", 3), CT(6, 10, 10), CT(6, 10, 0), CT(6, 14, 0), # last report came from 14:00 
+            (("Tulagi, Z F, 6 May", 1), CT(6, 10, 10), CT(6, 10, 0), CT(6, 14, 0), # last report came from 14:00 
                 RelPos(Tulagi, 192, 420mi)),
-            (("Tulagi, Z F, 6 May", 3), CT(6, 10, 30), CT(6, 10, 0), CT(6, 14, 0), 
+            (("Tulagi, Z F, 6 May", 1), CT(6, 10, 30), CT(6, 10, 0), CT(6, 14, 0), 
                 RelPos(Tulagi, 192, 420mi), 190, 20mi),
         ],
         [

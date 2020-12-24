@@ -41,7 +41,7 @@ end
     [sp.longitude], [sp.latitude]
 end
 
-@recipe function plot_sp_vec(sp_vec::Vector{SpatPos})
+@recipe function plot_sp_vec(sp_vec::Vector{SpatPos}; add_scatter=true)
     longitude_vec = Vector{Float64}(undef, length(sp_vec))
     latitude_vec = Vector{Float64}(undef, length(sp_vec))
     for i in eachindex(sp_vec)
@@ -51,8 +51,10 @@ end
     @series begin
         longitude_vec, latitude_vec
     end
-    @series begin
-        seriestype --> :scatter
-        longitude_vec, latitude_vec
+    if add_scatter
+        @series begin
+            seriestype --> :scatter
+            longitude_vec, latitude_vec
+        end
     end
 end
