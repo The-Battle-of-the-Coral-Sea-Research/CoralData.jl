@@ -1,7 +1,7 @@
 name = "CoralData"
 uuid = "889110da-db61-40bf-983e-4fb6a8ea23c7"
 authors = ["yiyuezhuo "]
-version = "0.1.0"
+version = "0.1.1"
 
 [deps]
 Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"

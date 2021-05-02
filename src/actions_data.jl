@@ -38,7 +38,7 @@ const scouting_action_group_map = Dict{String, Vector{Vector{Action}}}(
         "MO Carrier Striking Force",
         [230, 250, # Shōkaku (翔鶴)
          270, 290], # Zuikaku (瑞鶴)
-        500, CT(7, 15, 15), CT(7, 18, 30), -90, # end time = (7, 12, 30)?
+        500, CT(7, 15, 15), CT(7, 18, 30), -90,
         37
     ),
     "MO Carrier Striking Force, 7 May Afternoon Attack" => [normal_single_line_search(
